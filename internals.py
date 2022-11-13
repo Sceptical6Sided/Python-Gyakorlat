@@ -5,3 +5,7 @@ class Car:
         self.color = color
         self.maxspeed = maxspeed
         self.numofseats = numofseats
+
+    def __str__(self):
+        return f"This car is a(n) {self.model} made by {self.maker}, in the color of {self.color}" \
+               f". It has a max speed of {self.maxspeed} with {self.numofseats} ammount of seats."
