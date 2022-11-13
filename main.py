@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter.ttk import *
 from os import path
-import car
+import internals
 
-carslist = [car()]
+carslist = [internals.Car("toyota", "corola", "white", 160, 4)]
+
+print(carslist[0])
