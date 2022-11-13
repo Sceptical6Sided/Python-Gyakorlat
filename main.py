@@ -1,9 +1,10 @@
 from tkinter import *
 from tkinter.ttk import *
 from tkinter.messagebox import *
-from os import path
+import os
 import internals
 import random
+import atexit
 
 master = Tk()
 
@@ -16,10 +17,19 @@ carslist = [internals.Car("Toyota", "Corola", "black", 152, 4), internals.Car("H
 
 filters = ["Maker", "Model", "Color", "Horsepower", "Number of seats"]
 
-cars = {"Toyota Corola": 0, "Civic": 0}
+cars = {}
+for c in carslist:
+    cars[c] = 0
+
+
+if os.path.exists("sales.txt"):
+    file = open("sales.txt", "r+")
+
+    for f in file:
+        print(f.split(':')[1])
+    file.close()
 
 currentcar = StringVar()
-
 currentfilter = StringVar()
 
 
@@ -28,8 +38,12 @@ def buycar():
     if msg_box and currentcar.get() in cars:
         cars[currentcar.get()] += 1
         print(f"{currentcar.get()} {cars.get(currentcar.get())}")
-        # file = open("data.txt", "w")
-        # file.
+
+
+def exit_handler():
+    file = open("sales.txt", "w")
+    for key, value in cars.items():
+        file.write('%s:%s\n' % (key, value))
 
 
 labelcar = Label(master, text="Select a car:")
@@ -47,6 +61,7 @@ comboboxfilter.grid(row=1, column=1)
 buybutton = Button(master, text="Buy selected car", command=buycar)
 buybutton.grid(row=3, columnspan=2)
 
-#ellenőrzésre használt függvény
+# ellenőrzésre használt függvény
 print(carslist[random.randint(0, carslist.__len__()-1)])
 mainloop()
+atexit.register(exit_handler)
