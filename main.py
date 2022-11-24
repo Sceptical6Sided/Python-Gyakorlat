@@ -8,8 +8,7 @@ import atexit
 
 master = Tk()
 master.title("Car shop")
-master.geometry("250x60")
-master.iconname()
+master.geometry("250x100")
 
 cars_list = [internals.Car("Toyota", "Corola", "black", 152, 4), internals.Car("Honda", "Civic", "white", 158, 5),
              internals.Car("Subaru", "Outback", "navy", 182, 5), internals.Car("Nissan", "Altima", "red", 188, 4),
@@ -34,10 +33,10 @@ current_car = StringVar()
 
 
 def buy_car():
-        msg_box = askyesno("Are you sure", f"Are you sure you want to buy this car: {current_car.get()}")
-        if msg_box and current_car.get() in cars:
-            cars[current_car.get()] += 1
-            print(f"{current_car.get()} {cars.get(current_car.get())}")
+    msg_box = askyesno("Are you sure", f"Are you sure you want to buy this car: {current_car.get()}")
+    if msg_box and current_car.get() in cars:
+        cars[current_car.get()] += 1
+        print(f"{current_car.get()} {cars.get(current_car.get())}")
 
 
 def exit_handler():
@@ -46,7 +45,7 @@ def exit_handler():
         file.write('%s:%s\n' % (key, value))
 
 
-def car_selection_changed(event):
+def car_selection_changed():
     label_selected_car.config(text=f"Your selected car is:{current_car.get()}")
     label_selected_car.grid(row=2, columnspan=2)
 
